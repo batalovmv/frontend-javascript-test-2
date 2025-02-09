@@ -7,8 +7,8 @@ WORKDIR /app
 # Копируем только package.json и package-lock.json перед установкой зависимостей
 COPY my-app/package.json my-app/package-lock.json ./
 
-# Устанавливаем зависимости (используем `npm ci`, так как есть package-lock.json)
-RUN npm ci
+# Устанавливаем зависимости
+RUN npm install
 
 # Копируем весь исходный код проекта
 COPY my-app/ ./
