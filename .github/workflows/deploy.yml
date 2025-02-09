@@ -16,11 +16,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Проверяем файлы в репозитории
+        run: ls -la  # Выводит список файлов в корне
+
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
 
       - name: Build Docker image
-        run: docker build -t my-vite-app .  # Теперь указываем текущую директорию
+        run: docker build -t my-vite-app .  # Точка указывает на текущую директорию
 
       - name: Run container and extract build
         run: |
