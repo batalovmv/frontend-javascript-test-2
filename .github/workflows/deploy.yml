@@ -20,14 +20,14 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build Docker image
-        run: docker build -t my-vite-app ./
+        run: docker build -t my-vite-app ./my-app  # Указываем путь к my-app/
 
       - name: Run container and extract build
         run: |
-          docker run --rm -v $PWD/dist:/app/dist my-vite-app
+          docker run --rm -v $PWD/my-app/dist:/app/dist my-vite-app
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: dist  # Папка с готовыми файлами для деплоя
+          folder: my-app/dist  # Папка с готовыми файлами для деплоя

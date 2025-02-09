@@ -5,13 +5,13 @@ FROM node:18-alpine AS build
 WORKDIR /app
 
 # Копируем package.json и package-lock.json перед установкой зависимостей
-COPY my-app/package.json my-app/package-lock.json ./
+COPY package.json package-lock.json ./
 
 # Устанавливаем зависимости
 RUN npm install
 
-# Копируем весь код проекта (исключая node_modules)
-COPY my-app/ ./
+# Копируем весь код проекта (node_modules исключается через .dockerignore)
+COPY . .
 
 # Запускаем сборку
 RUN npm run build
