@@ -19,17 +19,17 @@ jobs:
       - name: 🛠️ Установка Docker
         uses: docker/setup-buildx-action@v2
 
-      - name: 🏗️ Сборка Docker-образа
-        run: docker build -t my-vite-app .
+      - name: 🏗️ Сборка Docker-образа (путь к `Dockerfile` в `my-app/`)
+        run: docker build -t my-vite-app -f my-app/Dockerfile my-app/
 
-      - name: 📦 Извлечение `dist/` из контейнера
+      - name: 📦 Извлечение `dist/` из контейнера (учёт `my-app/`)
         run: |
-          CONTAINER_ID=$(docker create my-vite-app)  # Запускаем контейнер
-          docker cp $CONTAINER_ID:/app/react-app/dist ./dist  # Копируем dist/
+          CONTAINER_ID=$(docker create my-vite-app)  # Создаём контейнер
+          docker cp $CONTAINER_ID:/app/react-app/dist ./my-app/dist  # Копируем dist/
           docker rm -v $CONTAINER_ID  # Удаляем контейнер
 
       - name: 🚀 Деплой на GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages  # Ветка для GitHub Pages
-          folder: dist  # Папка с готовыми файлами
+          branch: gh-pages  # Ветка Pages
+          folder: my-app/dist  # Папка с готовыми файлами
