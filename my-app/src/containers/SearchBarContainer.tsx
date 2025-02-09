@@ -1,4 +1,4 @@
-// src/containers/SearchBarContainer.tsx
+
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUsername } from "../features/userSlice";
