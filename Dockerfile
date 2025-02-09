@@ -1,16 +1,16 @@
 # Используем Node.js 18
 FROM node:18-alpine AS build
 
-# Устанавливаем рабочую директорию внутри контейнера
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Копируем только package.json и package-lock.json перед установкой зависимостей
+# Копируем package.json и package-lock.json перед установкой зависимостей
 COPY my-app/package.json my-app/package-lock.json ./
 
 # Устанавливаем зависимости
 RUN npm install
 
-# Копируем весь исходный код проекта
+# Копируем весь код проекта (исключая node_modules)
 COPY my-app/ ./
 
 # Запускаем сборку
