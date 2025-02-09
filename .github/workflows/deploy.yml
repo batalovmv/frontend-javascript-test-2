@@ -19,18 +19,12 @@ jobs:
       - name: Проверяем файлы в репозитории
         run: ls -la  # Выводит список файлов в корне
 
+      - name: Set working directory
+        run: cd ${{ github.workspace }} && ls -la  # Проверяем правильный путь
+
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
 
       - name: Build Docker image
-        run: docker build -t my-vite-app -f ./Dockerfile .
-
-      - name: Run container and extract build
-        run: |
-          docker run --rm -v $PWD/dist:/app/dist my-vite-app
-
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: dist  # Папка с готовыми файлами для деплоя
+        working-directory: ${{ github.workspace }}  # Указываем, где искать Dockerfile
+        run: docker build -t my-vite-app -f Dockerfile .
