@@ -7,13 +7,13 @@ WORKDIR /app
 # Копируем package.json и package-lock.json перед установкой зависимостей
 COPY my-app/package.json my-app/package-lock.json ./
 
-# Устанавливаем зависимости с учетом package-lock.json
+# Устанавливаем зависимости (важно: используем `npm ci`)
 RUN npm ci
 
-# Копируем весь проект (кроме node_modules, если он указан в .dockerignore)
+# Копируем весь код проекта
 COPY my-app ./
 
-# Собираем проект
+# Запускаем сборку
 RUN npm run build
 
 # Используем nginx для раздачи статических файлов
