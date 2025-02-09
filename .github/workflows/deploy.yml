@@ -13,21 +13,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: 🚀 Checkout репозитория
         uses: actions/checkout@v3
 
-      - name: Set up Docker
+      - name: 🛠️ Установка Docker
         uses: docker/setup-buildx-action@v2
 
-      - name: Build Docker image
-        run: docker build -t my-vite-app ./my-app  # Указываем путь к my-app/
+      - name: 🏗️ Сборка Docker-образа
+        run: docker build -t my-vite-app .
 
-      - name: Run container and extract build
+      - name: 📦 Извлечение `dist/` из контейнера
         run: |
-          docker run --rm -v $PWD/my-app/dist:/app/dist my-vite-app
+          CONTAINER_ID=$(docker create my-vite-app)  # Запускаем контейнер
+          docker cp $CONTAINER_ID:/app/react-app/dist ./dist  # Копируем dist/
+          docker rm -v $CONTAINER_ID  # Удаляем контейнер
 
-      - name: Deploy to GitHub Pages
+      - name: 🚀 Деплой на GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages
-          folder: my-app/dist  # Папка с готовыми файлами для деплоя
+          branch: gh-pages  # Ветка для GitHub Pages
+          folder: dist  # Папка с готовыми файлами

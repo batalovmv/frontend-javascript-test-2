@@ -1,11 +1,11 @@
 # Используем Node.js 18
-FROM node:18-alpine AS build
+FROM node:18-alpine AS BUILD_IMAGE
 
 # Устанавливаем рабочую директорию
-WORKDIR /app
+WORKDIR /app/react-app
 
 # Копируем package.json и package-lock.json перед установкой зависимостей
-COPY package.json package-lock.json ./
+COPY package.json .
 
 # Устанавливаем зависимости
 RUN npm install
@@ -16,14 +16,17 @@ COPY . .
 # Запускаем сборку
 RUN npm run build
 
+
+
+FROM node:18-alpine as PRODUCTION_IMAGE
+# Устанавливаем рабочую директорию
+WORKDIR /app/react-app
+
+COPY --from=BUILD_IMAGE /app/react-app/dist /app/react-app/dist/
 # Используем nginx для раздачи статических файлов
-FROM nginx:alpine
+EXPOSE 8080
+COPY package.json .
+COPY vite.config.ts .
+RUN npm install typescript
+CMD ["npm","run","preview"]
 
-# Копируем билд Vite-приложения в nginx
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Открываем порт 80
-EXPOSE 80
-
-# Запускаем nginx
-CMD ["nginx", "-g", "daemon off;"]
