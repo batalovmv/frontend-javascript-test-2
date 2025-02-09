@@ -1,0 +1,37 @@
+.repo-list {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.info-text {
+    text-align: center;
+    color: #777;
+    font-size: 16px;
+    padding-left: 12px;
+}
+
+.loading-text {
+    text-align: center;
+    color: #1a73e8;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.error-text {
+    text-align: center;
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.end-text {
+    text-align: center;
+    color: #4caf50;
+    font-size: 16px;
+    font-weight: bold;
+}
+.loading-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
