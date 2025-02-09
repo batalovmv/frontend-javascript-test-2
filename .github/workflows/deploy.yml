@@ -16,18 +16,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Проверка текущей директории
-        run: |
-          echo "Текущая директория:"
-          pwd
-          echo "Файлы в текущей директории:"
-          ls -la
-
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
 
       - name: Build Docker image
+        run: docker build -t my-vite-app my-app/
+
+      - name: Run container and extract build
         run: |
-          echo "Перед сборкой Docker. Проверяем файлы:"
-          ls -la
-          docker build -t my-vite-app -f Dockerfile .
+          docker run --rm -v $PWD/dist:/app/dist my-vite-app
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist  # Папка с готовыми файлами для деплоя
