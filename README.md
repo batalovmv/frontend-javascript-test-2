@@ -77,23 +77,6 @@ docker run -p 8080:8080 my-vite-app
 ## 📜 **Структура проекта**
 ```sh
 📦 frontend-javascript-test-2
-├── 📂 src
-│   ├── 📂 components   # UI-компоненты (RepoCard, SearchBar и др.)
-│   ├── 📂 containers   # Контейнеры (SearchBarContainer)
-│   ├── 📂 store        # Redux store, slices
-│   ├── 📂 hooks        # Кастомные хуки (useInfiniteScroll)
-│   ├── 📂 types        # TypeScript типы
-│   ├── main.tsx       # Точка входа
-│   ├── App.tsx        # Главный компонент
-├── 📂 my-app
-│   ├── Dockerfile     # Dockerfile для деплоя
-│   ├── dist/          # Скомпилированные файлы для GitHub Pages
-├── .github/workflows/deploy.yml  # GitHub Actions (авто-деплой)
-├── package.json
-├── vite.config.ts
-└── README.md
-
-📦 frontend-javascript-test-2
 └── 📂 my-app
     ├── 📂 src
     │   ├── 📂 api          # Запросы к GitHub API (fetchRepos)
